@@ -32,6 +32,8 @@ void setup() {
   base.attach(5);
   junta.attach(4);
 
+  base.write(begin_degree);
+
   Serial.begin(9600);
 }
 
@@ -44,14 +46,18 @@ void loop() {
 //FUNCTIONS DESCRIPTION
 void move_junta(){
   junta.write(90);
+
+  if(base.read() == 90) {
+    first_position_status = 1;
+    last_position_status = 0;
+  }
+
   delay(1500);
 
   if(abs(junta.read() - 90) < 5) {
     up_status = 1;
     down_status = 0;
   }
-
-  move_base();
 
   if(up_status) { 
     Serial.println("Descendo...\n");
@@ -87,43 +93,29 @@ void move_junta(){
       delay(500);
     }
   }
+  
+  if(base.read() == 180) {
+    first_position_status = 0;
+    last_position_status = 1;
+  }
   delay(1500);
 
   move_base();
 }
 
-//ERRO DE LOGICA NA BASE
 void move_base() {
-  base.write(begin_degree);
-
-  if(base.read() == 90) {
-    first_position_status = 1;
-    last_position_status = 0;
-  }
-
-  Serial.println("Indo...\n");
-
-  if(first_position_status && up_status) {
+  if(first_position_status) {
+    Serial.println("Indo...\n");
+    
     for(int i = begin_degree; i <= end_degree; i++){
       base.write(i);
       delay(100);
     }
   }
 
-  Serial.println(first_position_status);
-  Serial.println(up_status);
+  if(last_position_status) {
+    Serial.println("Voltando...\n");
 
-
-  if(base.read() == 180) {
-    first_position_status = 0;
-    last_position_status = 1;
-  }
-
-  Serial.println("Voltando...\n");
-  Serial.println(first_position_status);
-  Serial.println(up_status);
-
-  if(last_position_status && up_status) {
     for(int i = end_degree; i >= begin_degree; i--){
       base.write(i);
       delay(100);
