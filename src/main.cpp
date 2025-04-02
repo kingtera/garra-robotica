@@ -64,8 +64,7 @@ void go_work(){
 
     for(int i = 90; i >= 0; i--){
       junta.write(i);
-      i = i - 9;
-      delay(500);
+      delay(100);
     }
 
     up_status = 0;
@@ -89,8 +88,7 @@ void go_work(){
 
     for(int i = 0; i <= 90; i++){
       junta.write(i);
-      i = i + 9;
-      delay(500);
+      delay(100);
     }
   }
   
@@ -125,8 +123,23 @@ void move_base() {
 
 void open_grab() {
   Serial.println("Open\n");
-  garra_esquerda.write(180);
-  garra_direita.write(0);
+
+  int garra_esquerda_degree = 90;
+  int garra_direita_degree = 90;
+
+  // garra_esquerda.write(garra_esquerda_degree);
+  // garra_direita.write(garra_direita_degree);
+
+  for(int i = 0; i <= 90; i++){
+    garra_esquerda.write(garra_esquerda_degree + i);
+    garra_direita.write(garra_direita_degree - i);
+        
+    garra_esquerda_degree = garra_esquerda_degree + i;
+    garra_direita_degree = garra_direita_degree - i;
+
+    i = i + 9;
+    delay(500);
+  }
 
   if((garra_esquerda.read() == 180) && (garra_direita.read() == 0)) {
     open_status = 1;
@@ -136,8 +149,23 @@ void open_grab() {
 
 void close_grab() {
   Serial.println("Close\n");
-  garra_esquerda.write(90);
-  garra_direita.write(90);
+
+  // garra_esquerda.write(90);
+  // garra_direita.write(90);
+
+  int garra_esquerda_degree = 180;
+  int garra_direita_degree = 0;
+
+  for(int i = 0; i <= 90; i++){
+    garra_esquerda.write(garra_esquerda_degree - i);
+    garra_direita.write(garra_direita_degree + i);
+        
+    garra_esquerda_degree = garra_esquerda_degree - i;
+    garra_direita_degree = garra_direita_degree + i;
+
+    i = i + 9;
+    delay(500);
+  }
 
   if((garra_esquerda.read() == 90) && (garra_direita.read() == 90)) {
     open_status = 0;
