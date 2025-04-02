@@ -127,9 +127,6 @@ void open_grab() {
   int garra_esquerda_degree = 90;
   int garra_direita_degree = 90;
 
-  // garra_esquerda.write(garra_esquerda_degree);
-  // garra_direita.write(garra_direita_degree);
-
   for(int i = 0; i <= 90; i++){
     garra_esquerda.write(garra_esquerda_degree + i);
     garra_direita.write(garra_direita_degree - i);
@@ -149,9 +146,6 @@ void open_grab() {
 
 void close_grab() {
   Serial.println("Close\n");
-
-  // garra_esquerda.write(90);
-  // garra_direita.write(90);
 
   int garra_esquerda_degree = 180;
   int garra_direita_degree = 0;
