@@ -24,7 +24,7 @@ int catch_status = 0;
 void open_grab();
 void close_grab();
 void move_base();
-void move_junta();
+void go_work();
 
 void setup() {
   garra_esquerda.attach(7);
