@@ -38,13 +38,13 @@ void setup() {
 }
 
 void loop() {
-  move_junta();
+  go_work();
   delay(1000);
 }
 
 
 //FUNCTIONS DESCRIPTION
-void move_junta(){
+void go_work(){
   junta.write(90);
 
   if(base.read() == 90) {
