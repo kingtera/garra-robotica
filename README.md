@@ -7,4 +7,5 @@ Programamos ele usando a biblioteca do **Arduino** e **Servo**, com a extensão 
 - **Suporte para baterias 18650**  
 - **2x baterias 18650 Li-ion**  
 - **1x Regulador Buck LM2596**  
-- 
+- **3x Servos MG90S**
+- **1x Servo 9g**
